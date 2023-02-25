@@ -3,16 +3,16 @@ class Edge:
 		self.weight = weight
 		self.edge = (From.id, To.id)
 	def __str__(self): 
-		cat = ',' + str(self.weight) if self.weight != None else ''
+		cat = ',' + ('' if self.weight == None else str(self.weight))
 		return '(' + str(self.edge[0]) + '->' + str(self.edge[1]) + cat + ')'
 class Node:
 	def __init__(self, id):
 		self.id = id
 		self.edges = []
 	def addEdge(self, To, weight = None, isDirected = False):
-		self.edges +=  [str(Edge(self, To, weight))]
+		self.edges +=  [Edge(self, To, weight)]
 		if not isDirected:
-			To.edges +=  Edge(To.id, self.id, weight) 
+			To.addEdge(self,weight, True)
 	def __str__(self):
 		ret = ''
 		for edge in self.edges:
