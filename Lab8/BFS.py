@@ -3,7 +3,7 @@ sys.path.insert(0, '/home/student/Documents/210962092/Lab2')
 from Q1 import *
 from queue import PriorityQueue
 q = PriorityQueue()
-def Astar(nodes,start, end, h):
+def BFS(nodes,start, end, h):
     ret = []
     v = [0]*len(nodes)
     q.put((h[start],(start,0,[start])))
@@ -14,7 +14,7 @@ def Astar(nodes,start, end, h):
         for e in nodes[n[1][0]].edges:
             if not v[e.edge[1]]:
                 cost  = e.weight+n[1][1]
-                q.put((cost +h[e.edge[1]], (e.edge[1],cost,n[1][2] + [e.edge[1]])))
+                q.put((h[e.edge[1]], (e.edge[1],cost,n[1][2] + [e.edge[1]])))
         v[n[1][0]] = True;
         if n[1][0] in end:
             break
@@ -40,4 +40,4 @@ if __name__ == "__main__":
     nodes[7].addEdge( nodes[8], 2)
     nodes[8].addEdge( nodes[9], 3)
     h= {0:10,1:8,2:5,3:7,4:3,5:6,6:5,7:3,8:1,9:0}
-    print(Astar(nodes,0,[9],h))
+    print(BFS(nodes,0,[9],h))
